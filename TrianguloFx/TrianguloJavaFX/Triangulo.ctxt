@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Triangulo
+comment0.text=\r\n\ Un\ ejemplo\ que\ modela\ un\ Triangulo\ usando\ POO\r\n\ \r\n\ @author\:\ Andr\u00E9s\ Camilo\ Castellanos\ andrescamilocasa@ufps.edu.co\r\n\ @version\:\ 0.01\r\n
+comment1.params=
+comment1.target=Triangulo()
+comment2.params=lado1\ lado2\ lado3
+comment2.target=Triangulo(float,\ float,\ float)
+comment3.params=lado1
+comment3.target=void\ setLado1(float)
+comment3.text=complete\ GET/SET
+comment4.params=lado2
+comment4.target=void\ setLado2(float)
+comment5.params=lado3
+comment5.target=void\ setLado3(float)
+comment6.params=
+comment6.target=java.lang.String\ getTipo()
+comment7.params=
+comment7.target=boolean\ esRectangulo()
+numComments=8

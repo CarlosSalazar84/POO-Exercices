@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=ViewCafetera
+comment1.params=fxmlDocPath
+comment1.target=javafx.scene.Scene\ cargarScene(java.lang.String)
+comment2.params=stage
+comment2.target=void\ start(javafx.stage.Stage)
+numComments=3
