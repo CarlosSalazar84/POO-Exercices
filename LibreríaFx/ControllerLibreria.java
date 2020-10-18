@@ -133,29 +133,32 @@ public class ControllerLibreria{
         Integer aux;
         libro.setTitulo(fldTitulo.getText());
         libro.setAutores(fldAutores.getText());
-        if(fldAnioEdicion.getText().length() > 0){
+        if(!fldAnioEdicion.getText().isEmpty()){
             aux = Integer.parseInt(fldAnioEdicion.getText());
             libro.setAnioEdicion(aux);
         }
         libro.setEditorial(fldEditorial.getText());
-        if(fldPrecio.getText().length() > 0){
+        if(!fldPrecio.getText().isEmpty()){
             aux = Integer.parseInt(fldPrecio.getText());
             libro.setPrecio(aux);
         }
-        if(fldNumPaginas.getText().length() > 0){
+        if(!fldNumPaginas.getText().isEmpty()){
             aux = Integer.parseInt(fldNumPaginas.getText());
             libro.setNumeroDePaginas(aux);
         }
-        if(fldNumCopias.getText().length() > 0){
+        if(!fldNumCopias.getText().isEmpty()){
             aux = Integer.parseInt(fldNumCopias.getText());
             if(libro.cambiarNumeroDeCopias(aux)){
                 aux = libro.getNumeroDeCopiasDisponibles();
                 lblCopiasDisponibles.setText(aux.toString());
                 aux = libro.getNumeroDeCopiasPrestadas();
                 lblCopiasPrestadas.setText(aux.toString());
-                historialCopias[posicion] = libro.getNumeroDeCopias();
-                cboHistorial.getItems().add("Version " + posicion);
-                posicion++;
+
+                if(libro.getNumeroDeCopias() != historialCopias[posicion - 1]){
+                    historialCopias[posicion] = libro.getNumeroDeCopias();
+                    cboHistorial.getItems().add("Existencias #" + posicion);
+                    posicion++;
+                }
             }
             else{
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -241,7 +244,7 @@ public class ControllerLibreria{
         assert lblEtiqueta1 != null : "fx:id=\"lblEtiqueta1\" was not injected: check your FXML file 'libreria.fxml'.";
         assert lblEtiqueta2 != null : "fx:id=\"lblEtiqueta2\" was not injected: check your FXML file 'libreria.fxml'.";
 
-        cboHistorial.getItems().add("Initialize version");
+        cboHistorial.getItems().add("Existencias iniciales");
         historialCopias[0] = 0;
         posicion = 1;
         libro = new Libro();

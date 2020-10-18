@@ -57,32 +57,40 @@ public class ControllerTelevisor{
 
     @FXML
     void avanzarCanal(ActionEvent event){
-        televisor.avanzarCanal();
-        Integer num = televisor.getCanal();
-        lblNumCanal.setText(num.toString());
+        if(televisor.getNumTipoDeEntrada() > 0){
+            televisor.avanzarCanal();
+            Integer num = televisor.getCanal();
+            lblNumCanal.setText(num.toString());
+        }
     }
-    
+
     @FXML
     void retrocederCanal(ActionEvent event){
-        televisor.retrocederCanal();
-        Integer num = televisor.getCanal();
-        lblNumCanal.setText(num.toString());
+        if(televisor.getNumTipoDeEntrada() > 0){
+            televisor.retrocederCanal();
+            Integer num = televisor.getCanal();
+            lblNumCanal.setText(num.toString());
+        }
     }
-    
+
     @FXML
     void bajarVolumen(ActionEvent event){
-        televisor.bajarVolumen();
-        Integer num = televisor.getVolumen();
-        lblNumVolumen.setText(num.toString());
-        barVolumen.setProgress(num/20.0);
+        if(televisor.getNumTipoDeEntrada() > 0){
+            televisor.bajarVolumen();
+            Integer num = televisor.getVolumen();
+            lblNumVolumen.setText(num.toString());
+            barVolumen.setProgress(num/20.0);
+        }
     }
 
     @FXML
     void subirVolumen(ActionEvent event){
-        televisor.subirVolumen();
-        Integer num = televisor.getVolumen();
-        lblNumVolumen.setText(num.toString());
-        barVolumen.setProgress(num/20.0);
+        if(televisor.getNumTipoDeEntrada() > 0){
+            televisor.subirVolumen();
+            Integer num = televisor.getVolumen();
+            lblNumVolumen.setText(num.toString());
+            barVolumen.setProgress(num/20.0);
+        }
     }
 
     @FXML
@@ -91,8 +99,20 @@ public class ControllerTelevisor{
         lblEntrada.setText(televisor.getTipoDeEntrada());
         Integer num = televisor.getCanal();
         lblNumCanal.setText(num.toString());
+        if(televisor.getNumTipoDeEntrada() != 0){
+            cmdAvanzar.setDisable(false);
+            cmdRetroceder.setDisable(false);
+            cmdSubir.setDisable(false);
+            cmdBajar.setDisable(false);
+        }
+        else{
+            cmdAvanzar.setDisable(true);
+            cmdRetroceder.setDisable(true);
+            cmdSubir.setDisable(true);
+            cmdBajar.setDisable(true);
+        }
     }
-    
+
     @FXML
     void initialize() {
         assert barVolumen != null : "fx:id=\"barVolumen\" was not injected: check your FXML file 'televisor.fxml'.";
@@ -109,5 +129,11 @@ public class ControllerTelevisor{
         assert lblTitulo != null : "fx:id=\"lblTitulo\" was not injected: check your FXML file 'televisor.fxml'.";
 
         televisor = new Televisor();
+        cmdAvanzar.setDisable(true);
+        cmdRetroceder.setDisable(true);
+        cmdSubir.setDisable(true);
+        cmdBajar.setDisable(true);
+
     }
 }
+

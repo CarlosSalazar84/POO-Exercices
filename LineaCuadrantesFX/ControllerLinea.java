@@ -8,10 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Alert;
-
+import javafx.scene.control.ButtonType;
 
 public class ControllerLinea {
-
     @FXML
     private ResourceBundle resources;
 
@@ -63,17 +62,24 @@ public class ControllerLinea {
     private Linea l;
 
     @FXML
-    void actualizarCoordenadas(ActionEvent event) {
-        l.setX1(Float.parseFloat(txtX1.getText()));
-        l.setY1(Float.parseFloat(txtY1.getText()));
-        l.setX2(Float.parseFloat(txtX2.getText()));
-        l.setY2(Float.parseFloat(txtY2.getText()));
-        cmdDeterminarUbicacion.setDisable(false);
+    void actualizarCoordenadas(ActionEvent event){
+        boolean empty = txtX1.getText().isEmpty() || txtY1.getText().isEmpty()
+            || txtX2.getText().isEmpty() || txtY2.getText().isEmpty();
+
+        if(!empty){
+            l.setX1(Float.parseFloat(txtX1.getText()));
+            l.setY1(Float.parseFloat(txtY1.getText()));
+            l.setX2(Float.parseFloat(txtX2.getText()));
+            l.setY2(Float.parseFloat(txtY2.getText()));
+            cmdDeterminarUbicacion.setDisable(false);
+
+        }
+        else alertError("Contenerdor vacío, ingrese valor","");
     }
 
     @FXML
     void ayuda(ActionEvent event) {
-        
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Ayuda");
         alert.setContentText("Determina la ubicación de la línea respecto al plano.");
@@ -87,13 +93,20 @@ public class ControllerLinea {
         cmdDeterminarUbicacion.setDisable(true);
     }
 
-    private void actualizarGUI()
+    public void actualizarGUI()
     {
         lblUbicacion.setText(""+l.getUbicacion());
         txtX1.setText(""+l.getX1());
         txtY1.setText(""+l.getY1());
         txtX2.setText(""+l.getX2());
         txtY2.setText(""+l.getY2());
+    }
+
+    void alertError(String mensaje, String subMensaje){
+        Alert alert = new Alert(Alert.AlertType.ERROR, subMensaje, ButtonType.OK);
+        alert.setHeaderText(mensaje);
+        alert.setTitle("Error");
+        alert.showAndWait();
     }
 
     @FXML

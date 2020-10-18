@@ -133,7 +133,11 @@ public class ControllerCasaDeCambio {
 
     @FXML
     void cambiarPrecioDelBolivar(ActionEvent event){
-        if(fldPrecioCompra.getText().length() > 0 && fldPrecioVenta.getText().length() > 0){
+        boolean error = fldPrecioCompra.getText().isEmpty() || fldPrecioVenta.getText().isEmpty() ||
+                        Float.parseFloat(fldPrecioCompra.getText()) <= 0 ||
+                        Float.parseFloat(fldPrecioVenta.getText()) <= 0;
+      
+        if(!error){
             float PrecioCompra = Float.parseFloat(fldPrecioCompra.getText());
             float PrecioVenta = Float.parseFloat(fldPrecioVenta.getText());
 
@@ -147,17 +151,27 @@ public class ControllerCasaDeCambio {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setHeaderText("Acción inválida");
                 alert.setTitle("Mensaje");
-                alert.setContentText("Perdemos dinero!, el precio de venta debe ser mayor al de compra");
+                alert.setContentText("¡¡Perdemos dinero!!" + '\n' + "El precio de venta debe ser mayor al de compra.");
                 alert.showAndWait();
             }
-            fldPrecioCompra.clear();
-            fldPrecioVenta.clear();
         }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Acción inválida");
+            alert.setTitle("Mensaje");
+            alert.setContentText("Ingrese valores válidos");
+            alert.showAndWait();
+        }
+        fldPrecioCompra.clear();
+        fldPrecioVenta.clear();
     }
 
     @FXML
     void comprarBolivares(ActionEvent event){
-        if(fldCantidadComprar.getText().length() > 0){
+        boolean error = fldCantidadComprar.getText().isEmpty() ||
+                        Integer.parseInt(fldCantidadComprar.getText()) <= 0;
+        
+        if(!error){
             int value = Integer.parseInt(fldCantidadComprar.getText());
 
             if(casaDeCambio.comprarBolivares(value)){
@@ -181,13 +195,22 @@ public class ControllerCasaDeCambio {
                 alert.setContentText("El dinero en caja es insuficiente, intente de nuevo");
                 alert.showAndWait();
             }
-            fldCantidadComprar.clear();
         }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Acción inválida");
+            alert.setTitle("Mensaje");
+            alert.setContentText("La cantidad debe ser positiva");
+            alert.showAndWait();
+        }
+        fldCantidadComprar.clear();
     }
 
     @FXML
     void venderBolivares(ActionEvent event){
-        if(fldCantidadVender.getText().length() > 0){
+        boolean error = fldCantidadVender.getText().isEmpty() ||
+                        Integer.parseInt(fldCantidadVender.getText()) <= 0;
+        if(!error){
             int value = Integer.parseInt(fldCantidadVender.getText());
 
             if(casaDeCambio.venderBolivares(value)){
@@ -214,13 +237,23 @@ public class ControllerCasaDeCambio {
                 alert.setContentText("El dinero en caja es insuficiente, intente de nuevo");
                 alert.showAndWait();
             }
-            fldCantidadVender.clear();
         }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Acción inválida");
+            alert.setTitle("Mensaje");
+            alert.setContentText("La cantidad debe ser positiva");
+            alert.showAndWait();
+        }
+        fldCantidadVender.clear();
     }
 
     @FXML
     void inyectar(ActionEvent event){
-        if(fldCantidadInyectar.getText().length() > 0){
+        boolean error = fldCantidadInyectar.getText().isEmpty() ||
+                        Integer.parseInt(fldCantidadInyectar.getText()) <= 0;
+        
+        if(!error){
             int value = Integer.parseInt(fldCantidadInyectar.getText());
 
             if(optBolivar.isSelected()){
@@ -235,8 +268,15 @@ public class ControllerCasaDeCambio {
                 Float auxPf = casaDeCambio.getPesosEnCaja(); 
                 lblPesosEnCaja.setText(new DecimalFormat("#.###").format(auxPf));
             }
-            fldCantidadInyectar.clear();
         }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Acción inválida");
+            alert.setTitle("Mensaje");
+            alert.setContentText("La cantidad debe ser positiva");
+            alert.showAndWait();
+        }
+        fldCantidadInyectar.clear();
     }
 
     @FXML

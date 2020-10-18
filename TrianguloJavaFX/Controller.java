@@ -9,6 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import java.text.NumberFormat;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert;
 
 public class Controller {
 
@@ -45,11 +47,17 @@ public class Controller {
     private Triangulo triangulo;
 
     @FXML
-    void determinarTriangulo(ActionEvent event) {
-        triangulo.lado1 = Float.parseFloat(txtLado1.getText());
-        triangulo.lado2 = Float.parseFloat(txtLado2.getText());
-        triangulo.lado3 = Float.parseFloat(txtLado3.getText());
-        cambiarImagen(triangulo.getTipo());
+    void determinarTriangulo(ActionEvent event){
+        boolean error = txtLado1.getText().isEmpty() || Float.parseFloat(txtLado1.getText()) < 0 ||
+                        txtLado2.getText().isEmpty() || Float.parseFloat(txtLado2.getText()) < 0 || 
+                        txtLado3.getText().isEmpty() || Float.parseFloat(txtLado3.getText()) < 0;
+        if(!error){
+            triangulo.lado1 = Float.parseFloat(txtLado1.getText());
+            triangulo.lado2 = Float.parseFloat(txtLado2.getText());
+            triangulo.lado3 = Float.parseFloat(txtLado3.getText());
+            cambiarImagen(triangulo.getTipo());
+        }
+        else alertError("Error, ingrese un valor válido","");
     } 
     
     void cambiarImagen(String tipoTriangulo){
@@ -59,11 +67,18 @@ public class Controller {
         else
             ruta= "/images/"+tipoTriangulo+".png";
             
-        Image image = new Image (ruta); //establece la imagen deseada en la variable imagen haciendo uso de la clase javafx.scene.image.Image
+        Image image = new Image (ruta);
             
         imgTriangulo.setImage(image);
     }
-
+    
+    void alertError(String mensaje, String subMensaje){
+        Alert alert = new Alert(Alert.AlertType.ERROR, subMensaje, ButtonType.OK);
+        alert.setHeaderText(mensaje);
+        alert.setTitle("Error");
+        alert.showAndWait();
+    }
+  
     @FXML
     void initialize() {
         assert lblLado1 != null : "fx:id=\"lblLado1\" was not injected: check your FXML file 'vistaTriangulo.fxml'.";

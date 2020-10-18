@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class ControllerRectangulo {
 
@@ -74,13 +75,17 @@ public class ControllerRectangulo {
 
     @FXML
     void actualizarCoordenadas(ActionEvent event) {
-        
-        r.setOrigenX(Float.parseFloat(txtOrigenX.getText()));
-        r.setOrigenY(Float.parseFloat(txtOrigenY.getText()));
-        r.setAncho(Float.parseFloat(txtAncho.getText()));
-        r.setAlto(Float.parseFloat(txtAlto.getText()));
-        cmdDeterminarPosicion.setDisable(false);
-
+        boolean error = txtOrigenX.getText().isEmpty() || txtOrigenY.getText().isEmpty() ||
+                        Float.parseFloat(txtAncho.getText()) <= 0 || txtAncho.getText().isEmpty() || 
+                        Float.parseFloat(txtAlto.getText()) <= 0 || txtAlto.getText().isEmpty();
+        if(!error){
+            r.setOrigenX(Float.parseFloat(txtOrigenX.getText()));
+            r.setOrigenY(Float.parseFloat(txtOrigenY.getText()));
+            r.setAncho(Float.parseFloat(txtAncho.getText()));
+            r.setAlto(Float.parseFloat(txtAlto.getText()));
+            cmdDeterminarPosicion.setDisable(false);
+        }
+        else alertError("Datos inválidos, ingrese nuevos valores",""); 
     }
 
     @FXML
@@ -95,10 +100,19 @@ public class ControllerRectangulo {
 
     @FXML
     void determinarPosicion(ActionEvent event) {
+        boolean error = txtPuntoX.getText().isEmpty() || txtPuntoY.getText().isEmpty();
         
-        lblUbicacion.setText(r.getPosicionPunto(Float.parseFloat(txtPuntoX.getText()),Float.parseFloat(txtPuntoY.getText())));
+        if(!error){ lblUbicacion.setText(r.getPosicionPunto(Float.parseFloat(txtPuntoX.getText()),Float.parseFloat(txtPuntoY.getText())));
         cmdDeterminarPosicion.setDisable(true);
-
+        }
+        else alertError("Contenedor vacío, ingrese valores","");
+    }
+  
+    void alertError(String mensaje, String subMensaje){
+        Alert alert = new Alert(Alert.AlertType.ERROR, subMensaje, ButtonType.OK);
+        alert.setHeaderText(mensaje);
+        alert.setTitle("Error");
+        alert.showAndWait();
     }
 
     @FXML

@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 public class ControllerCirculo {
 
@@ -64,45 +65,59 @@ public class ControllerCirculo {
 
     @FXML
     private Label lblUbicacion;
-    
+
     private Circulo c;
 
     @FXML
-    void DeterminarUbicacion(ActionEvent event) {
-        
-        String t = c.getPosicionPunto(Float.parseFloat(txtPuntoX.getText()),Float.parseFloat(txtPuntoY.getText()));
-        
-        if(t.equalsIgnoreCase("Punto Dentro del Círculo") || t.equalsIgnoreCase("Punto En Borde de Círculo"))
-        {
-            lblUbicacion.setTextFill(Color.GREEN);
-            lblUbicacion.setText(t);
+    void DeterminarUbicacion(ActionEvent event){
+        boolean empty = txtPuntoX.getText().isEmpty() || txtPuntoY.getText().isEmpty(); 
+        if(!empty){
+            String t = c.getPosicionPunto(Float.parseFloat(txtPuntoX.getText()),Float.parseFloat(txtPuntoY.getText()));
+
+            if(t.equalsIgnoreCase("Punto Dentro del Círculo") || t.equalsIgnoreCase("Punto En Borde de Círculo"))
+            {
+                lblUbicacion.setTextFill(Color.GREEN);
+                lblUbicacion.setText(t);
+            }
+            else if(t.equalsIgnoreCase("Punto Fuera del Círculo"))
+            {
+                lblUbicacion.setTextFill(Color.RED);
+                lblUbicacion.setText(t);
+            }
+            cmdDeterminarUbicacion.setDisable(true);
         }
-        else if(t.equalsIgnoreCase("Punto Fuera del Círculo"))
-        {
-            lblUbicacion.setTextFill(Color.RED);
-            lblUbicacion.setText(t);
-        }
-        cmdDeterminarUbicacion.setDisable(true);
-        
+        else alertError("Error, ingrese un valor valido", "");
 
     }
 
     @FXML
-    void actualizarCoordenadas(ActionEvent event) {
-        
-        c.setCentroX(Float.parseFloat(txtCentroX.getText()));
-        c.setCentroY(Float.parseFloat(txtCentroY.getText()));
-        c.setRadio(Float.parseFloat(txtRadio.getText()));
-        cmdDeterminarUbicacion.setDisable(false);
+    void actualizarCoordenadas(ActionEvent event){
+        boolean empty = txtCentroX.getText().isEmpty() || txtCentroY.getText().isEmpty() ||
+            txtRadio.getText().isEmpty() || Float.parseFloat(txtRadio.getText()) < 0;
+
+        if(!empty){
+            c.setCentroX(Float.parseFloat(txtCentroX.getText()));
+            c.setCentroY(Float.parseFloat(txtCentroY.getText()));
+            c.setRadio(Float.parseFloat(txtRadio.getText()));
+            cmdDeterminarUbicacion.setDisable(false);
+        }
+        else alertError("Error, ingrese un valor valido", "");
     }
 
     @FXML
-    void ayuda(ActionEvent event) {
+    void ayuda(ActionEvent event){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Ayuda");
-                alert.setContentText("Determina la ubicacción de un punto relativa a un círculo.");
-                alert.showAndWait();
+        alert.setTitle("Ayuda");
+        alert.setContentText("Determina la ubicacción de un punto relativa a un círculo.");
+        alert.showAndWait();
 
+    }
+
+    void alertError(String mensaje, String subMensaje){
+        Alert alert = new Alert(Alert.AlertType.ERROR, subMensaje, ButtonType.OK);
+        alert.setHeaderText(mensaje);
+        alert.setTitle("Error");
+        alert.showAndWait();
     }
 
     @FXML

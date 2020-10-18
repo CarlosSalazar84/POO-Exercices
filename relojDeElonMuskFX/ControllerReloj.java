@@ -64,9 +64,9 @@ public class ControllerReloj {
     void adelantarMinutero(ActionEvent event) {
         
         r.avanzarMinutero();
-        lblMinuto.setText(Integer.toString(r.getMinutos()));
-        lblSegundo.setText(Integer.toString(r.getSegundos()));
-        lblHora.setText(Integer.toString(r.getHoras()));
+        lblMinuto.setText(ceroIzq(r.getMinutos()) + Integer.toString(r.getMinutos()));
+        lblSegundo.setText(ceroIzq(r.getSegundos()) + Integer.toString(r.getSegundos()));
+        lblHora.setText(ceroIzq(r.getHoras()) + Integer.toString(r.getHoras()));
 
     }
 
@@ -74,9 +74,9 @@ public class ControllerReloj {
     void adelantarSegundero(ActionEvent event) {
         
         r.avanzarSegundero();
-        lblMinuto.setText(Integer.toString(r.getMinutos()));
-        lblSegundo.setText(Integer.toString(r.getSegundos()));
-        lblHora.setText(Integer.toString(r.getHoras()));
+        lblMinuto.setText(ceroIzq(r.getMinutos()) + Integer.toString(r.getMinutos()));
+        lblSegundo.setText(ceroIzq(r.getSegundos()) + Integer.toString(r.getSegundos()));
+        lblHora.setText(ceroIzq(r.getHoras()) + Integer.toString(r.getHoras()));
 
     }
 
@@ -84,9 +84,9 @@ public class ControllerReloj {
     void adelantarhorario(ActionEvent event) {
 
         r.avanzarHorario();
-        lblMinuto.setText(Integer.toString(r.getMinutos()));
-        lblSegundo.setText(Integer.toString(r.getSegundos()));
-        lblHora.setText(Integer.toString(r.getHoras()));
+        lblMinuto.setText(ceroIzq(r.getMinutos()) + Integer.toString(r.getMinutos()));
+        lblSegundo.setText(ceroIzq(r.getSegundos()) + Integer.toString(r.getSegundos()));
+        lblHora.setText(ceroIzq(r.getHoras()) + Integer.toString(r.getHoras()));
 
     }
 
@@ -94,9 +94,9 @@ public class ControllerReloj {
     void retrocederHorario(ActionEvent event) {
         
         r.retrocederHorario();
-        lblMinuto.setText(Integer.toString(r.getMinutos()));
-        lblSegundo.setText(Integer.toString(r.getSegundos()));
-        lblHora.setText(Integer.toString(r.getHoras()));
+        lblMinuto.setText(ceroIzq(r.getMinutos()) + Integer.toString(r.getMinutos()));
+        lblSegundo.setText(ceroIzq(r.getSegundos()) + Integer.toString(r.getSegundos()));
+        lblHora.setText(ceroIzq(r.getHoras()) + Integer.toString(r.getHoras()));
 
     }
 
@@ -104,9 +104,9 @@ public class ControllerReloj {
     void retrocederMinutero(ActionEvent event) {
         
         r.retrocederMinutero();
-        lblMinuto.setText(Integer.toString(r.getMinutos()));
-        lblSegundo.setText(Integer.toString(r.getSegundos()));
-        lblHora.setText(Integer.toString(r.getHoras()));
+        lblMinuto.setText(ceroIzq(r.getMinutos()) + Integer.toString(r.getMinutos()));
+        lblSegundo.setText(ceroIzq(r.getSegundos()) + Integer.toString(r.getSegundos()));
+        lblHora.setText(ceroIzq(r.getHoras()) + Integer.toString(r.getHoras()));
 
     }
 
@@ -114,11 +114,17 @@ public class ControllerReloj {
     void retrocederSegundero(ActionEvent event) {
         
         r.retrocederSegundero();
-        lblMinuto.setText(Integer.toString(r.getMinutos()));
-        lblSegundo.setText(Integer.toString(r.getSegundos()));
-        lblHora.setText(Integer.toString(r.getHoras()));
+        lblMinuto.setText(ceroIzq(r.getMinutos()) + Integer.toString(r.getMinutos()));
+        lblSegundo.setText(ceroIzq(r.getSegundos()) + Integer.toString(r.getSegundos()));
+        lblHora.setText(ceroIzq(r.getHoras()) + Integer.toString(r.getHoras()));
 
     }
+    
+    private String ceroIzq(int num){
+        String out = "";
+        if(num < 10) out += "0";
+        return out;
+    } 
 
     @FXML
     void initialize() {

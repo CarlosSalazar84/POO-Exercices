@@ -75,7 +75,7 @@ public class Linea {
         
 
     public String getUbicacion() {
-        String ubicacion = "La línea se encuentra en lo(s) cuadrante(s) ";
+        String ubicacion = "La línea se encuentra en el(los) cuadrante(s) ";
         if(estaEnCuadranteI()) ubicacion += "I ";
         if(estaEnCuadranteII()) ubicacion += "II ";
         if(estaEnCuadranteIII()) ubicacion += "III ";
